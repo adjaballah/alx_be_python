@@ -17,4 +17,4 @@ match operation:
     case _:
         print("Invalid operation. Please choose from +, -, *, or /.") 
 
-print ("The result is:",result)                
+print ("The result is ",result)                
