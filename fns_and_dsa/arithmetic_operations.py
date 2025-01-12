@@ -1,4 +1,4 @@
-def perform_operation(num1, num2, operation) :
+def perform_operation(num1, num2, operation):
 
   if operation == 'add':
     return num1 + num2
@@ -7,11 +7,11 @@ def perform_operation(num1, num2, operation) :
   elif operation == 'multiply' :
     return num1 * num2
   elif operation == 'divide' :
-    if num1 == 0 :
+    if num2 == 0 :
       return "Error : Division by zero is not allowed."
     return num1 / num2
   else:
-    return "Error : Invalid operation. Please use 'add','subtract','multiplt', or 'divide'."   
+    return "Error : Invalid operation. Please use 'add','subtract','multiply', or 'divide'."   
 
     
                    
