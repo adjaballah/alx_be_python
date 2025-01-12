@@ -11,8 +11,6 @@ def convert_to_fahrenheit(celsius):
     return (celsius * CELSIUS_TO_FAHRENHEIT_FACTOR) + FAHRENHEIT_OFFSET
 
 def main():
-    print("Welcome to the Temperature Converter!")
-    
     try:
         temperature = float(input("Enter the temperature to convert: "))
     except ValueError:
