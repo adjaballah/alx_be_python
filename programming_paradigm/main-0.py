@@ -1,27 +1,30 @@
-import argparse
+import sys
 from bank_account import BankAccount
 
 def main():
-    # Initialiser le compte bancaire avec un solde de départ (par défaut 0)
-    account = BankAccount()
+    account = BankAccount(100)  # Example starting balance
 
-    # Définir les arguments de ligne de commande
-    parser = argparse.ArgumentParser(description="Bank Account Operations")
-    parser.add_argument("action", help="Action to perform (deposit, withdraw, balance)")
-    parser.add_argument("amount", type=float, nargs="?", default=0, help="Amount for deposit or withdrawal")
+    if len(sys.argv) < 2:
+        print("Usage: python main-0.py <command>:<amount>")
+        print("Commands: deposit, withdraw, display")
+        sys.exit(1)
 
-    # Analyser les arguments
-    args = parser.parse_args()
+    command, *params = sys.argv[1].split(':')
+    amount = float(params[0]) if params else None
 
-    # Exécuter l'action demandée
-    if args.action == "deposit":
-        account.deposit(args.amount)
-    elif args.action == "withdraw":
-        account.withdraw(args.amount)
-    elif args.action == "balance":
+    if command == "deposit" and amount is not None:
+        account.deposit(amount)
+        print(f"Deposited: ${amount}")
+    elif command == "withdraw" and amount is not None:
+        if account.withdraw(amount):
+            print(f"Withdrew: ${amount}")
+        else:
+            print("Insufficient funds.")
+    elif command == "display":
         account.display_balance()
     else:
-        print("Invalid action. Please choose 'deposit', 'withdraw', or 'balance'.")
+        print("Invalid command. Usage: python main-0.py <command>:<amount>")
+        print("Commands: deposit, withdraw, display")
 
 if __name__ == "__main__":
     main()
