@@ -1,33 +1,28 @@
-import json
-
 class BankAccount:
     def __init__(self, initial_balance=0):
-        self._account_balance = initial_balance
+        """Initialiser le compte bancaire avec un solde initial (par défaut à 0)."""
+        self.account_balance = initial_balance
 
     def deposit(self, amount):
-        self._account_balance += amount
-        self.save_balance()
-        return f"Deposited: ${amount}"
+        """Déposer un montant spécifié sur le compte."""
+        if amount > 0:
+            self.account_balance += amount
+            print(f"Deposited: ${amount}")
+        else:
+            print("Deposit amount must be positive.")
 
     def withdraw(self, amount):
-        if amount <= self._account_balance:
-            self._account_balance -= amount
-            self.save_balance()
-            return f"Withdrew: ${amount}"
+        """Retirer un montant spécifié du compte si les fonds sont suffisants."""
+        if amount > 0 and self.account_balance >= amount:
+            self.account_balance -= amount
+            print(f"Withdrew: ${amount}")
+            return True
+        elif amount <= 0:
+            print("Withdrawal amount must be positive.")
         else:
-            return "Insufficient funds."
+            print("Insufficient funds.")
+        return False
 
     def display_balance(self):
-        return f"Current Balance: ${self._account_balance}"
-
-    def save_balance(self):
-        with open('balance.json', 'w') as f:
-            json.dump({'balance': self._account_balance}, f)
-
-    def load_balance(self):
-        try:
-            with open('balance.json', 'r') as f:
-                data = json.load(f)
-                self._account_balance = data.get('balance', 0)
-        except FileNotFoundError:
-            self._account_balance = 0
+        """Afficher le solde actuel."""
+        print(f"Current balance: ${self.account_balance}")
