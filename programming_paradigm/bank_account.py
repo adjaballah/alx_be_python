@@ -17,8 +17,7 @@ class BankAccount:
             return True
         elif amount <= 0:
             print("Withdrawal amount must be positive.")
-        else:
-            print("Insufficient funds.")
+       
         return False
 
     def display_balance(self):
