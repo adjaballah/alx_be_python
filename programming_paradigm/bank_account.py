@@ -1,25 +1,34 @@
+# programming_paradigm/bank_account.py
+
 class BankAccount:
     def __init__(self, initial_balance=0):
-        """Initialize the BankAccount with an initial balance (default is 0)."""
-        self.account_balance = initial_balance
+        """
+        Initialize the BankAccount with an optional initial balance.
+        :param initial_balance: The starting balance (default is 0).
+        """
+        self.__account_balance = initial_balance  # Encapsulated attribute
 
     def deposit(self, amount):
-        """Deposit the specified amount to the account."""
+        """
+        Add the specified amount to the account balance.
+        :param amount: Amount to deposit.
+        """
         if amount > 0:
-            self.account_balance += amount
-        else:
-            print("Deposit amount must be positive.")
+            self.__account_balance += amount
 
     def withdraw(self, amount):
-        """Withdraw the specified amount from the account if sufficient funds are available."""
-        if amount > 0 and self.account_balance >= amount:
-            self.account_balance -= amount
+        """
+        Deduct the specified amount from the account balance if sufficient funds exist.
+        :param amount: Amount to withdraw.
+        :return: True if successful, False if insufficient funds.
+        """
+        if 0 < amount <= self.__account_balance:
+            self.__account_balance -= amount
             return True
-        elif amount <= 0:
-            print("Withdrawal amount must be positive.")
-       
         return False
 
     def display_balance(self):
-        """Display the current balance."""
-        print(f"Current balance: ${self.account_balance}")
+        """
+        Print the current account balance in a user-friendly format.
+        """
+        print(f"Current Balance: ${self.__account_balance:.2f}")
