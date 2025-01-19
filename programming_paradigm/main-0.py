@@ -2,37 +2,24 @@ import sys
 from bank_account import BankAccount
 
 def main():
-    # Create a bank account instance (initial balance of 0 by default)
     account = BankAccount()
+    account.load_balance()
 
-    if len(sys.argv) < 2:
-        print("Usage: python main-0.py <command>:<amount> or display")
+    if len(sys.argv) != 2:
+        print("Usage: python main-0.py <command>:<amount>")
         return
 
-    # Parse the command and arguments
-    input_command = sys.argv[1].lower()
-
-    if ":" in input_command:
-        try:
-            command, value = input_command.split(":")
-            amount = float(value)
-        except ValueError:
-            print("Invalid format. Use <command>:<amount> (e.g., deposit:50).")
-            return
-
-        if command == "deposit":
-            account.deposit(amount)
-            account.display_balance()
-        elif command == "withdraw":
-            if account.withdraw(amount):
-                account.display_balance()
-        else:
-            print("Unknown command. Use 'deposit', 'withdraw', or 'display'.")
-
-    elif input_command == "display":
-        account.display_balance()
+    command = sys.argv[1]
+    if command.startswith("deposit:"):
+        amount = int(command.split(":")[1])
+        print(account.deposit(amount))
+    elif command.startswith("withdraw:"):
+        amount = int(command.split(":")[1])
+        print(account.withdraw(amount))
+    elif command == "display":
+        print(account.display_balance())
     else:
-        print("Unknown command. Use 'deposit:<amount>', 'withdraw:<amount>', or 'display'.")
+        print("Invalid command.")
 
 if __name__ == "__main__":
     main()

@@ -1,26 +1,33 @@
+import json
+
 class BankAccount:
     def __init__(self, initial_balance=0):
-       
-      self.account_balance = initial_balance
+        self._account_balance = initial_balance
 
     def deposit(self, amount):
-       
-        if amount > 0:
-            self.account_balance += amount
-            print(f"Deposited: ${amount:.2f}")
-        else:
-            print("Deposit amount must be positive.")
+        self._account_balance += amount
+        self.save_balance()
+        return f"Deposited: ${amount}"
 
     def withdraw(self, amount):
-       
-        if amount <= self.account_balance:
-            self.account_balance -= amount
-            print(f"Withdrew: {amount}")
-            return True
+        if amount <= self._account_balance:
+            self._account_balance -= amount
+            self.save_balance()
+            return f"Withdrew: ${amount}"
         else:
-            print("Insufficient funds.")
-            return False
+            return "Insufficient funds."
 
     def display_balance(self):
-        
-        print(f"Current Balance: {self.account_balance:.2f}")
+        return f"Current Balance: ${self._account_balance}"
+
+    def save_balance(self):
+        with open('balance.json', 'w') as f:
+            json.dump({'balance': self._account_balance}, f)
+
+    def load_balance(self):
+        try:
+            with open('balance.json', 'r') as f:
+                data = json.load(f)
+                self._account_balance = data.get('balance', 0)
+        except FileNotFoundError:
+            self._account_balance = 0
