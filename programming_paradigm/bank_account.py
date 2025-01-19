@@ -7,7 +7,7 @@ class BankAccount:
        
         if amount > 0:
             self.account_balance += amount
-            print(f"Deposited: {amount}")
+            print(f"Deposited: ${amount:.2f}")
         else:
             print("Deposit amount must be positive.")
 
